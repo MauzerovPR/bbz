@@ -1,10 +1,10 @@
-DROP DATABASE Komis;
+DROP DATABASE IF EXISTS Komis;
 CREATE DATABASE IF NOT EXISTS Komis;
 
 Use Komis;
 
-Create Table If Not Exists Samochody (
-	samochody_id int primary key,
+CREATE TABLE IF NOT EXISTS Samochody (
+	samochody_id int primary key auto_increment,
     marka varchar(255),
     model varchar(255),
     typ_nadwozia varchar(255),
@@ -15,28 +15,30 @@ Create Table If Not Exists Samochody (
     cena decimal(10, 2)
 );
 
-Create Table If Not Exists Komitenci (
-	komitenci_id int primary key,
+CREATE TABLE IF NOT EXISTS Komitenci (
+	komitenci_id int primary key auto_increment,
     imie varchar(255),
     nazwisko varchar(255),
-    pesel varchar(11),
-    e_mail varchar(255),
-    telefon varchar(20),
-    adres text
+    pesel varchar(11) check ( length(pesel) = 11 ),
+    e_mail varchar(255) default null,
+    telefon varchar(20) default null,
+    adres text default null,
+    check ( (e_mail is not null) OR (telefon is not null) )
 );
 
-Create Table If Not Exists Nabywcy (
-	nabywcy_id int primary key,
+CREATE TABLE IF NOT EXISTS Nabywcy (
+	nabywcy_id int primary key auto_increment,
     imie varchar(255),
     nazwisko varchar(255),
-    pesel varchar(11),
-    e_mail varchar(255),
-    telefon varchar(20),
-    adres text
+    pesel varchar(11) check ( length(pesel) = 11 ),
+    e_mail varchar(255) default null,
+    telefon varchar(20) default null,
+    adres text default null,
+    check ( (e_mail is not null) OR (telefon is not null) )
 );
 
-Create Table If Not Exists Rejestr (
-	rejestr_id int primary key,
+CREATE TABLE IF NOT EXISTS Rejestr (
+	rejestr_id int primary key auto_increment,
     komitenci_id int not null,
     nabywcy_id int not null,
     samochody_id int not null,
@@ -48,3 +50,5 @@ Create Table If Not Exists Rejestr (
 );
 
 SHOW TABLES;
+
+

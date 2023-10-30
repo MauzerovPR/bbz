@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function generatePESEL(wiek, plec, walidacja) {
+            var rokteraz = new Date().getFullYear();
+            var randomwiek = Math.floor(Math.random() * 100);
+            if (wiek == 1) {
+                randomwiek = Math.floor(Math.random() * 18);
+            } else if (wiek == 2) {
+                randomwiek = Math.floor(Math.random() * 82) + 18;
+            } else if (wiek == 4) {
+                randomwiek = Math.floor(Math.random() * 82) + 18;
+            }
+            if (wiek == 3) {
+                var rokurodzenia = new Date(jQuery('#data_urodzenia').val() + " 06:00:00").getFullYear();
+                var dzienPESEL = new Date(jQuery('#data_urodzenia').val() + " 06:00:00").getDate();
+                var msc = 1 + new Date(jQuery('#data_urodzenia').val() + " 06:00:00").getMonth();
+                randomwiek = rokteraz - rokurodzenia;
+            } else {
+                var rokurodzenia = rokteraz - randomwiek;
+                var dzienPESEL = 1 + Math.floor(Math.random() * 27);
+                var msc = 1 + Math.floor(Math.random() * 11);
+            }
+            var mscPESEL = msc;
+            var rokPESEL = rokurodzenia - 1900;
+            if (rokurodzenia >= 2000) {
+                mscPESEL += 20;
+                rokPESEL = rokurodzenia - 2000;
+            }
+            if (mscPESEL < 10) {
+                mscPESEL = "0" + mscPESEL;
+            }
+            if (dzienPESEL < 10) {
+                dzienPESEL = "0" + dzienPESEL;
+            }
+            if (rokPESEL < 10) {
+                rokPESEL = "0" + rokPESEL;
+            }
+            var PESEL = rokPESEL + '' + mscPESEL + '' + dzienPESEL + '' + Math.floor(Math.random() * 9) + '' + Math.floor(Math.random() * 9) + '' + Math.floor(Math.random() * 9);
+            var plecPESEL = '' + Math.floor(Math.random() * 9);
+            var PESEL_plec = "M";
+            if (plec == 0) {
+                if (plecPESEL == "0" || plecPESEL == "2" || plecPESEL == "4" || plecPESEL == "6" || plecPESEL == "8") {
+                    PESEL_plec = "F";
+                }
+            } else {
+                if (plec == 1) {
+                    plecPESEL = '' + 2 * Math.floor(Math.random() * 4);
+                    PESEL_plec = "F";
+                } else {
+                    plecPESEL = '' + (2 * Math.floor(Math.random() * 4) + 1);
+                    PESEL_plec = "M";
+                }
+            }
+
+            var returner = {};
+            PESEL = PESEL + plecPESEL;
+            var wagi = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7];
+            var suma = 0;
+            for (var i = 0; i < wagi.length; i++) {
+                suma += (parseInt(PESEL.substring(i, i + 1), 10) * wagi[i]);
+            }
+            suma = suma % 10;
+            if (walidacja == 2) {
+                walidacja = Math.floor(Math.random() * 2);
+            }
+            if (walidacja == 0) {
+                returner['poprawny'] = true;
+                PESEL = PESEL + '' + suma;
+            } else if (walidacja == 1) {
+                returner['poprawny'] = false;
+                var blad = Math.floor(Math.random() * 5);
+                if (blad == 0) {
+                    suma += 1;
+                    if (suma == 10) {
+                        suma -= 2;
+                    }
+                    PESEL = PESEL + '' + suma;
+                } else if (blad == 1) {} else if (blad == 2) {
+                    PESEL = PESEL + '' + suma;
+                    PESEL = PESEL + '' + Math.floor(Math.random() * 10);
+                } else if (blad == 3) {
+                    PESEL = PESEL + '' + suma;
+                    PESEL = PESEL + '' + rand_str_without_O0();
+                } else if (blad == 4) {
+                    PESEL = PESEL + '' + rand_str_without_O0();
+                }
+            }
+
+            if (msc < 10) {
+                msc = "0" + msc;
+            }
+
+            returner['pesel'] = PESEL;
+            returner['plec'] = PESEL_plec;
+            returner['lata'] = randomwiek;
+
+            returner['data_urodzenia'] = rokurodzenia + "-" + msc + "-" + dzienPESEL;
+            return returner;
+        }
+            objects = []
+        for (let i = 0; i < 10000; i++) {
+            objects.push(generatePESEL(0, 0, 0))
+        }
+        document.write(JSON.stringify(objects))
+    </script>
+</body>
+</html>
