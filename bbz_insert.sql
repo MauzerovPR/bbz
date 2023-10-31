@@ -63,68 +63,55 @@ INSERT INTO samochody(
     ('Chrysler', 'Pacifica', 'Minivan', 2019, 'Gasoline', 11000, 'IJ678KL', 26000);
 
 INSERT INTO nabywcy(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
-    ('Bartek', 'Dudek', '31020151818', 'Bartek.Dudek@onet.pl', '997814037', 'Koluszki, Jana Skrzyneckiego 74'),
-    ('Jan', 'Jabłoński', '40061152814', 'Jan.Jablonski@gmail.com', '211633238', 'Zawidów, Romualda Gutta 55'),
-    ('Mikołaj', 'Baran', '99020850434', 'Mikolaj.Baran@gmail.com', '203605810', 'Buk, Grębałowska 92'),
-    ('Bartek', 'Marciniak', '58041128470', 'Bartek.Marciniak@wp.pl', '859416303', 'Ińsko, Kleopatry 21'),
-    ('Szymon', 'Jankowski', '87051586178', 'Szymon.Jankowski@onet.pl', '621284594', 'Zduńska Wola, Polinezyjska 163'),
-    ('Maciej', 'Rybak', '81072473037', 'Maciej.Rybak@interia.pl', '929687120', 'Szczecinek, Augustyna Kordeckiego 58'),
-    ('Bartek', 'Mazur', '09230376611', 'Bartek.Mazur@interia.pl', '513557229', 'Łowicz, Kołowa 112'),
-    ('Daniel', 'Makowski', '39060283816', 'Daniel.Makowski@onet.pl', '567658784', 'Lublin, Stanisławowska 131'),
-    ('Filip', 'Grabowski', '66012671054', 'Filip.Grabowski@yahoo.com', '183649351', 'Łabiszyn, Gołkowska 22'),
-    ('Patrycja', 'Jóźwiak', '00281084025', 'Patrycja.Jozwiak@o2.pl', '069901893', 'Bielsk Podlaski, Bolesława Podczaszyńskiego 159'),
-    ('Michał', 'Zając', '61040826737', 'Michal.Zajac@wp.pl', '385491005', 'Michałowo, Koniczynowa 136'),
-    ('Maria', 'Pluta', '33101072362', 'Maria.Pluta@interia.pl', '401694293', 'Mielec, Prabucka 207'),
-    ('Miłosz', 'Dąbrowski', '38032384058', 'Milosz.Dabrowski@onet.pl', '422872259', 'Kałuszyn, Dorohuska 135'),
-    ('Nikol', 'Olejnik', '69050457019', NULL, '801796637', 'Połaniec, Łagodna 23'),
-    ('Jesica', 'Wawrzyniak', '45092183743', 'Jesica.Wawrzyniak@wp.pl', '410451837', 'Lubawka, Mokra (Wesoła) 112'),
-    ('Maria', 'Walczak', '28060834122', 'Maria.Walczak@onet.pl', '289767316', 'Gdynia, Rodzynkowa 114'),
-    ('Wiktor', 'Krajewski', '84031443074', 'Wiktor.Krajewski.77@tlen.pl', '638556203', 'Kąty Wrocławskie, Mazurska 100'),
-    ('Marceli', 'Cieślak', '31010877870', 'Marceli.Cieslak@yahoo.com', '938678682', 'Puck, Józefa Sierakowskiego 56'),
-    ('Mateusz', 'Urbański', '09280943371', 'Mateusz.Urbanski@outlook.com', '270316029', 'Przedecz, Władysława Reymonta 281'),
-    ('Marcin', 'Rutkowski', '25101284533', 'Marcin.Rutkowski@o2.pl', '253209996', 'Limanowa, Kameliowa (Wesoła) 170');
+    ('Wojciech', 'Sawicki', '04301987116', 'Wojciech.Sawicki.431@yahoo.com', '566948232', 'Łęczna, Pola Karolińskie 99'),
+    ('Zofia', 'Białek', '83012604589', 'Zofia.Bialek@tlen.pl', '778381629', 'Krajenka, Masztowa 109'),
+    ('Sebastian', 'Wójcik', '66042266716', 'Sebastian.Wojcik@gmail.com', '817193362', 'Turek, Gżegżółki 11'),
+    ('Maciej', 'Bielecka', '99090314230', 'Maciej.Bielecka.87@yahoo.com', '170558916', 'Bydgoszcz, Mieszczańska 19'),
+    ('Mateusz', 'Bąk', '69040441156', 'Mateusz.Bak@onet.pl', '818462833', 'Ciężkowice, Samolotowa 92'),
+    ('Wiktoria', 'Nowak', '33012112887', 'Wiktoria.Nowak@outlook.com', '707521766', 'Siedlce, Klasyków 95'),
+    ('Zuzanna', 'Nowakowska', '95021668388', 'Zuzanna.Nowakowska.363@wp.pl', '488937488', 'Wilamowice, I Poprzeczna 38'),
+    ('Szymon', 'Małecka', '59081128839', 'Szymon.Malecka@outlook.com', '967663319', 'Legionowo, Morelowa 144'),
+    ('Michał', 'Kwiatkowski', '24100430679', 'Michal.Kwiatkowski@gmail.com', '184121872', 'Zabłudów, Wiertnicza 88'),
+    ('Jan', 'Nowicki', '33041351558', 'Jan.Nowicki@outlook.com', '902951429', 'Gubin, Skrzypcowa 271'),
+    ('Filip', 'Lewandowski', '40112777852', 'Filip.Lewandowski@wp.pl', '458897975', 'Jaworzyna Śląska, Parnas 211'),
+    ('Bartek', 'Kowalski', '26051745253', 'Bartek.Kowalski.562@onet.pl', '423368260', 'Lipsko, Jabłoni 11'),
+    ('Wiktoria', 'Matusiak', '46041130182', 'Wiktoria.Matusiak@gmail.com', '866565204', 'Połczyn-Zdrój, Toporowska 236'),
+    ('Julia', 'Cieślik', '55052752009', 'Julia.Cieslik@gmail.com', NULL, 'Łowicz, Uczniowska 74'),
+    ('Adrian', 'Kurowski', '46021461471', 'Adrian.Kurowski@tlen.pl', '755677631', 'Hrubieszów, Sternicza 58'),
+    ('Stefan', 'Bąk', '43041958877', 'Stefan.Bak@tlen.pl', '924507356', 'Baborów, Dobra (Wesoła) 126'),
+    ('Maciej', 'Bednarek', '43081860534', 'Maciej.Bednarek@onet.pl', '171834150', 'Suchedniów, Peszteńska 280'),
+    ('Karol', 'Szewczyk', '89052681258', 'Karol.Szewczyk.785@tlen.pl', '285714132', 'Radymno, Holenderska 149'),
+    ('Wojciech', 'Jankowski', '54060884072', 'Wojciech.Jankowski@outlook.com', '416477286', 'Kalwaria Zebrzydowska, Kogucia 180'),
+    ('Maja', 'Wójtowicz', '70101470684', 'Maja.Wojtowicz@interia.pl', '711275088', 'Libiąż, Nad Rzeczką 181');
+
+
 
 INSERT INTO komitenci(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
-    ('Tymoteusz', 'Adamczyk', '68112510017', NULL, '700480032', 'Myszyniec, Leonida Teligi 224'),
-    ('Adam', 'Woźniak', '33052134735', NULL, '953920669', 'Radlin, Łyżwiarska 265'),
-    ('Kacper', 'Mazur', '51082268855', 'Kacper.Mazur@yahoo.com', '260030557', 'Mielec, Miechowska 98'),
-    ('Victoria', 'Nowak', '07310140206', 'Victoria.Nowak@wp.pl', '217062896', 'Świętochłowice, Łucka 14'),
-    ('Agata', 'Leśniak', '06291804242', 'Agata.Lesniak.898@onet.pl', '713478958', 'Konstancin-Jeziorna, Matecznik 129'),
-    ('Michał', 'Sikorski', '05262016035', 'Michal.Sikorski@interia.pl', '006342553', 'Konstantynów Łódzki, Jamińska 89'),
-    ('Mikołaj', 'Marek', '80032177558', 'Mikolaj.Marek@tlen.pl', '381959140', 'Gościno, Christa Botewa 174'),
-    ('Adrian', 'Pawlik', '14312512418', 'Adrian.Pawlik@onet.pl', '301689730', 'Więcbork, Naddnieprzańska 229'),
-    ('Karol', 'Kowal', '87112253616', 'Karol.Kowal@tlen.pl', '084741028', 'Mszczonów, 111 Eskadry Myśliwskiej 149'),
-    ('Bartek', 'Nowicka', '70052423430', 'Bartek.Nowicka@tlen.pl', '299761622', 'Czyżew, Rycerstwa Polskiego 128'),
-    ('Aleksander', 'Kaczmarczyk', '85112034859', 'Aleksander.Kaczmarczyk@o2.pl', '478017986', 'Janowiec Wielkopolski, Raduńska 148'),
-    ('Alan', 'Urban', '09220127056', 'Alan.Urban@tlen.pl', '961430992', 'Jasło, Bylicowa 114'),
-    ('Wiktor', 'Przybysz', '92022200412', 'Wiktor.Przybysz.62@o2.pl', '408352363', 'Podkowa Leśna, Oskara Sosnowskiego 99'),
-    ('Ignacy', 'Bąk', '70070753076', 'Ignacy.Bak.405@yahoo.com', '930678728', 'Cybinka, Floriana Znanieckiego 55'),
-    ('Konrad', 'Pawlak', '69111488635', 'Konrad.Pawlak@yahoo.com', '649407729', 'Kwidzyn, Wesoła 117'),
-    ('Maciej', 'Michalak', '55041710074', 'Maciej.Michalak.269@yahoo.com', '604393066', 'Biała Podlaska, Metafory 159'),
-    ('Zofia', 'Świątek', '37010188884', 'Zofia.Swiatek@yahoo.com', '970564073', 'Kock, Boczniaków 83'),
-    ('Maja', 'Gajewska', '61072168443', NULL, '875222347', 'Słupsk, Jana Chrystiana Szucha 113'),
-    ('Filip', 'Zawadzka', '31041257539', 'Filip.Zawadzka@o2.pl', '368309429', 'Drzewica, Kazimierza Drewnowskiego 140'),
-    ('Piotr', 'Ciesielski', '74041426554', 'Piotr.Ciesielski@o2.pl', '161085573', 'Blachownia, Dworkowa 132');
+    ('Antonina', 'Orzechowska', '75102701849', 'Antonina.Orzechowska@tlen.pl', '525052232', 'Orzesze, Batalionu Miotła 175'),
+    ('Alicja', 'Kaczmarek', '87021633389', 'Alicja.Kaczmarek@interia.pl', '197375810', 'Warta, Kórnicka 84'),
+    ('Lena', 'Kurowska', '64011005243', 'Lena.Kurowska.607@wp.pl', '279434839', 'Kolonowskie, Konewki 112'),
+    ('Piotr', 'Kowalski', '41052652852', 'Piotr.Kowalski.972@yahoo.com', '747446114', 'Zawadzkie, Jana Himilsbacha 125'),
+    ('Aleksander', 'Wysocka', '84031883319', 'Aleksander.Wysocka@wp.pl', '273118587', 'Wysoka, Flamenco 94'),
+    ('Oskar', 'Górski', '69052144553', 'Oskar.Gorski@outlook.com', '693323230', 'Piotrków Trybunalski, Mała 175'),
+    ('Bartek', 'Lis', '32011373433', 'Bartek.Lis@outlook.com', '358462906', 'Lubawka, Pruszkowska 60'),
+    ('Julia', 'Mazurek', '50022037568', 'Julia.Mazurek@interia.pl', '526954512', 'Dobre Miasto, Honoriusza Balzaka 174'),
+    ('Bartek', 'Stępień', '97050178711', 'Bartek.Stepien@tlen.pl', '612397697', 'Pabianice, Kroczewska 225'),
+    ('Filip', 'Majewski', '89101536533', 'Filip.Majewski@onet.pl', '726119983', 'Żnin, Azaliowa (Wesoła) 10'),
+    ('Maja', 'Paluch', '85092372701', 'Maja.Paluch@gmail.com', '449518399', 'Gorzów Wielkopolski, Jaskółcza 96'),
+    ('Ksawery', 'Mazur', '64051851336', 'Ksawery.Mazur@wp.pl', '494153262', 'Chocz, Zaranie 205'),
+    ('Zofia', 'Kwiatkowska', '99012203789', NULL, '221880243', 'Pionki, Karpacka 192'),
+    ('Stanisław', 'Lewandowski', '62012438378', 'Stanislaw.Lewandowski@onet.pl', '560092800', 'Duszniki-Zdrój, Szczekocińska 50'),
+    ('Marcin', 'Jankowski', '30081760254', 'Marcin.Jankowski@yahoo.com', '415698165', 'Nowy Staw, Lipowa 69'),
+    ('Lidia', 'Górecka', '40111986422', 'Lidia.Gorecka.964@wp.pl', '405556910', 'Tuszyn, Jagny 70'),
+    ('Michał', 'Jankowski', '51071062435', 'Michal.Jankowski@wp.pl', '408320520', 'Pasłęk, Kocka 183'),
+    ('Szymon', 'Wesołowski', '35041507236', 'Szymon.Wesolowski@onet.pl', '818317729', 'Górzno, Romana Sanguszki 137'),
+    ('Antoni', 'Jakubowski', '39010704172', 'Antoni.Jakubowski@gmail.com', '952092929', 'Łabiszyn, Władysława Skoczylasa 54'),
+    ('Dominik', 'Olejnik', '77100420818', 'Dominik.Olejnik@gmail.com', '257424534', 'Złocieniec, Orzycka 4');
+
 
 DELIMITER \\
 CREATE PROCEDURE MakeNRandomPurchases(IN n int) BEGIN
     WHILE n > 0 DO
-        -- find a car which has not yet been sold and random buyer and seller
-        -- inner select required due to local variable overflow when more than one result
-        SELECT
-            @s_id := cte.samochody_id,
-            @c := cte.cena,
-            @n_id := cte.nabywcy_id,
-            @k_id := cte.komitenci_id
-        FROM (
-            SELECT samochody_id, cena, nabywcy_id, komitenci_id
-            FROM nabywcy, komitenci, samochody
-            WHERE samochody_id NOT IN (SELECT samochody_id FROM rejestr)
-            ORDER BY RAND() LIMIT 1
-        ) cte;
-
-        -- change the car cost, it may have changed due to high demand (up to one third of original price)
-        SET @c = @c + @c * (RAND() / 3);
         -- get random time stamp for the purchase
         SET @d = current_timestamp();
         SET @d = DATE_SUB(@d, INTERVAL FLOOR(RAND() * 365 * 4) DAY); -- random purchase day may be 4 years old
@@ -134,7 +121,12 @@ CREATE PROCEDURE MakeNRandomPurchases(IN n int) BEGIN
 
         -- make the transaction
         INSERT INTO rejestr(komitenci_id, nabywcy_id, samochody_id, data_zakup, cena)
-        VALUE (@k_id, @n_id, @s_id, @d, @c);
+        (
+            SELECT komitenci_id, nabywcy_id, samochody_id, @d, cena + (cena * rand() / 3) AS cena
+            FROM nabywcy, komitenci, samochody
+            WHERE samochody_id NOT IN (SELECT samochody_id FROM rejestr)
+            ORDER BY RAND() LIMIT 1
+        );
 
         SET n = n - 1;
     END WHILE;

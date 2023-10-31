@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS Rejestr (
     nabywcy_id int not null,
     samochody_id int not null,
     data_zakup timestamp default current_timestamp(),
-    cena Decimal(10, 2),
+    cena decimal(10, 2),
     foreign key (komitenci_id) references Komitenci(komitenci_id),
     foreign key (nabywcy_id) references Nabywcy(nabywcy_id),
     foreign key (samochody_id) references Samochody(samochody_id)
