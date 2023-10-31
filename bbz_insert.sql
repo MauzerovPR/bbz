@@ -109,28 +109,22 @@ INSERT INTO komitenci(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
     ('Dominik', 'Olejnik', '77100420818', 'Dominik.Olejnik@gmail.com', '257424534', 'Złocieniec, Orzycka 4');
 
 
+DROP PROCEDURE IF EXISTS MakeNRandomPurchases;
 DELIMITER \\
 CREATE PROCEDURE MakeNRandomPurchases(IN n int) BEGIN
-    WHILE n > 0 DO
-        -- get random time stamp for the purchase
-        SET @d = current_timestamp();
-        SET @d = DATE_SUB(@d, INTERVAL FLOOR(RAND() * 365 * 4) DAY); -- random purchase day may be 4 years old
-        SET @d = DATE_SUB(@d, INTERVAL FLOOR(RAND() * 24) HOUR); -- random purchase at any hour of the day
-        SET @d = DATE_SUB(@d, INTERVAL FLOOR(RAND() * 60) MINUTE); -- random purchase at any minute of the hour
-        SET @d = DATE_SUB(@d, INTERVAL FLOOR(RAND() * 60) SECOND); -- random purchase at any second of the minute
-
-        -- make the transaction
         INSERT INTO rejestr(komitenci_id, nabywcy_id, samochody_id, data_zakup, cena)
         (
-            SELECT komitenci_id, nabywcy_id, samochody_id, @d, cena + (cena * rand() / 3) AS cena
+            SELECT
+                komitenci_id,
+                nabywcy_id,
+                samochody_id,
+                DATE_SUB(current_timestamp, INTERVAL FLOOR(RAND() * 365 * 4 * 24 * 60 * 60) SECOND),
+                ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena
             FROM nabywcy, komitenci, samochody
             WHERE samochody_id NOT IN (SELECT samochody_id FROM rejestr)
-            ORDER BY RAND() LIMIT 1
+            ORDER BY RAND() LIMIT n
         );
-
-        SET n = n - 1;
-    END WHILE;
-end \\
+END \\
 DELIMITER ;
 
 TRUNCATE TABLE rejestr;
