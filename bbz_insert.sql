@@ -19,7 +19,7 @@ INSERT INTO samochody(
     ('Lexus', 'IS', 'Sedan', 2019, 'Gasoline', 17000, 'QR123ST', 17000),
     ('Mercedes-Benz', 'GLC', 'SUV', 2022, 'Gasoline', 11000, 'UV901CD', 11000),
     ('Volvo', 'V60', 'Wagon', 2021, 'Gasoline', 14000, 'AB456EF', 14000),
-    ('Mazda', 'MX-5', 'Convertible', 2018, 'Gasoline', 15000, 'GH123IJ', 15000),
+    ('Mazda', 'MX-5', 'Cabriolet', 2018, 'Gasoline', 15000, 'GH123IJ', 15000),
     ('Porsche', '911', 'Coupe', 2020, 'Gasoline', 9000, 'KL901MN', 90000),
     ('Jeep', 'Cherokee', 'SUV', 2019, 'Gasoline', 25000, 'OP123QR', 25000),
     ('Hyundai', 'Tucson', 'Crossover', 2020, 'Gasoline', 16000, 'ST678UV', 16000),
@@ -60,7 +60,24 @@ INSERT INTO samochody(
     ('Hyundai', 'Elantra', 'Sedan', 2021, 'Gasoline', 7200, 'OP567QR', 21000),
     ('Toyota', 'Sienna', 'Minivan', 2021, 'Gasoline', 9000, 'AB123CD', 30000),
     ('Honda', 'Odyssey', 'Minivan', 2020, 'Gasoline', 9500, 'EF456GH', 28000),
-    ('Chrysler', 'Pacifica', 'Minivan', 2019, 'Gasoline', 11000, 'IJ678KL', 26000);
+    ('Chrysler', 'Pacifica', 'Minivan', 2019, 'Gasoline', 11000, 'IJ678KL', 26000),
+    ('Ford', 'Focus', 'Sedan', 2010, 'Gasoline', 180000, 'AB123CD', 5000),
+    ('Chevrolet', 'Malibu', 'Sedan', 2008, 'Gasoline', 160000, 'EF456GH', 4000),
+    ('Honda', 'Civic', 'Sedan', 2009, 'Gasoline', 170000, 'IJ678KL', 4500),
+    ('Toyota', 'Camry', 'Sedan', 2012, 'Gasoline', 190000, 'MN890OP', 5500),
+    ('Nissan', 'Altima', 'Sedan', 2014, 'Gasoline', 160000, 'QR123ST', 6000),
+    ('Ford', 'Escape', 'SUV', 2011, 'Gasoline', 180000, 'UV456AB', 7000),
+    ('Chevrolet', 'Equinox', 'SUV', 2010, 'Gasoline', 175000, 'CD789EF', 4800),
+    ('Honda', 'CR-V', 'SUV', 2013, 'Gasoline', 195000, 'GH012IJ', 7500),
+    ('Toyota', 'Corolla', 'Sedan', 2015, 'Gasoline', 150000, 'KL345MN', 6500),
+    ('Nissan', 'Rogue', 'SUV', 2012, 'Gasoline', 185000, 'OP678QR', 7000),
+    ('Ford', 'F-150', 'Pickup Truck', 2010, 'Gasoline', 200000, 'ST901UV', 8000),
+    ('Chevrolet', 'Silverado', 'Pickup Truck', 2016, 'Gasoline', 170000, 'AB234CD', 9000),
+    ('Toyota', 'Sienna', 'Minivan', 2014, 'Gasoline', 175000, 'EF456GH', 7500),
+    ('Honda', 'Odyssey', 'Minivan', 2011, 'Gasoline', 185000, 'IJ678KL', 7000),
+    ('Chrysler', 'Town & Country', 'Minivan', 2013, 'Gasoline', 190000, 'MN890OP', 7800),
+    ('Dodge', 'Grand Caravan', 'Minivan', 2012, 'Gasoline', 175000, 'QR123ST', 7500);
+
 
 INSERT INTO nabywcy(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
     ('Wojciech', 'Sawicki', '04301987116', 'Wojciech.Sawicki.431@yahoo.com', '566948232', 'Łęczna, Pola Karolińskie 99'),
@@ -83,7 +100,6 @@ INSERT INTO nabywcy(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
     ('Karol', 'Szewczyk', '89052681258', 'Karol.Szewczyk.785@tlen.pl', '285714132', 'Radymno, Holenderska 149'),
     ('Wojciech', 'Jankowski', '54060884072', 'Wojciech.Jankowski@outlook.com', '416477286', 'Kalwaria Zebrzydowska, Kogucia 180'),
     ('Maja', 'Wójtowicz', '70101470684', 'Maja.Wojtowicz@interia.pl', '711275088', 'Libiąż, Nad Rzeczką 181');
-
 
 
 INSERT INTO komitenci(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
