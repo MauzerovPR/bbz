@@ -44,11 +44,21 @@ CREATE TABLE IF NOT EXISTS Rejestr (
     samochody_id int not null,
     data_zakup timestamp default current_timestamp() not null,
     cena decimal(10, 2) not null,
-    foreign key (komitenci_id) references Komitenci(komitenci_id) ON DELETE SET NULL,
-    foreign key (nabywcy_id) references Nabywcy(nabywcy_id) ON DELETE SET NULL,
-    foreign key (samochody_id) references Samochody(samochody_id) ON DELETE CASCADE
+    foreign key (komitenci_id) references Komitenci(komitenci_id) ON DELETE SET NULL, -- seller removed? keep track
+    foreign key (nabywcy_id) references Nabywcy(nabywcy_id) ON DELETE SET NULL, -- buyer removed? keep track
+    foreign key (samochody_id) references Samochody(samochody_id) ON DELETE CASCADE -- car removed? remove transaction
 );
 
+DROP FUNCTION IF EXISTS Random_Date_Between;
+DELIMITER \\
+CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME NO SQL BEGIN
+    SET @secondsBetween = TIMESTAMPDIFF(SECOND, a, b);
+    SET @secondsOffset = FLOOR(RAND() * @secondsBetween);
+    RETURN DATE_ADD(a, INTERVAL @secondsOffset SECOND);
+END \\
+DELIMITER ;
+
 SHOW TABLES;
+
 
 

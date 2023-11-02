@@ -125,24 +125,35 @@ INSERT INTO komitenci(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
     ('Dominik', 'Olejnik', '77100420818', 'Dominik.Olejnik@gmail.com', '257424534', 'Złocieniec, Orzycka 4');
 
 
-DROP PROCEDURE IF EXISTS MakeNRandomPurchases;
+DROP PROCEDURE IF EXISTS Make_NRandom_Purchases;
 DELIMITER \\
-CREATE PROCEDURE MakeNRandomPurchases(IN n int) BEGIN
+CREATE PROCEDURE Make_NRandom_Purchases(IN n int) BEGIN
     INSERT INTO rejestr(komitenci_id, nabywcy_id, samochody_id, data_zakup, cena)
     (
+        WITH cte AS (
+            SELECT
+                samochody_id,
+                RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) data_zakup,
+                ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena,
+                rok_produkcji
+            FROM samochody
+            WHERE samochody_id NOT IN (
+                SELECT samochody_id FROM rejestr
+            )
+        )
         SELECT
             (SELECT komitenci_id FROM komitenci ORDER BY RAND() LIMIT 1),
             (SELECT nabywcy_id FROM nabywcy ORDER BY RAND() LIMIT 1),
             samochody_id,
-            DATE_SUB(current_timestamp, INTERVAL FLOOR(RAND() * 365 * 4 * 24 * 60 * 60) SECOND),
-            ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena
-        FROM samochody
-        WHERE samochody_id NOT IN (SELECT samochody_id FROM rejestr)
+            data_zakup,
+            cena
+        FROM cte
+        WHERE YEAR(data_zakup) >= rok_produkcji
         ORDER BY RAND() LIMIT n
     );
 END \\
 DELIMITER ;
 
 TRUNCATE TABLE rejestr;
-CALL MakeNRandomPurchases(10);
+CALL Make_NRandom_Purchases(30);
 
