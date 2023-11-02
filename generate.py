@@ -3,6 +3,13 @@ from string import digits
 from unidecode import unidecode
 from json import loads
 
+
+def randomPhoneNumber():
+    prefixes = ['45', '50', '51', '53', '57', '60', '66', '69', '72', '73', '78', '79', '88']
+
+    return choice(prefixes) + ''.join(choice(digits) for _ in range(7))
+
+
 with \
     open("fullnames.txt", encoding="ANSI") as names, \
     open("cities.txt", encoding="ANSI") as cities, \
@@ -39,7 +46,7 @@ with \
         if randint(0, 30) == 25:
             email = None
 
-        phone = str(randint(1, 9)) + ''.join([choice(digits) for _ in range(8)])
+        phone = randomPhoneNumber()
         if randint(0, 50) == 25 and email is not None:
             phone = None
 
