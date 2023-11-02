@@ -131,12 +131,12 @@ CREATE PROCEDURE MakeNRandomPurchases(IN n int) BEGIN
     INSERT INTO rejestr(komitenci_id, nabywcy_id, samochody_id, data_zakup, cena)
     (
         SELECT
-            komitenci_id,
-            nabywcy_id,
+            (SELECT komitenci_id FROM komitenci ORDER BY RAND() LIMIT 1),
+            (SELECT nabywcy_id FROM nabywcy ORDER BY RAND() LIMIT 1),
             samochody_id,
             DATE_SUB(current_timestamp, INTERVAL FLOOR(RAND() * 365 * 4 * 24 * 60 * 60) SECOND),
             ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena
-        FROM nabywcy, komitenci, samochody
+        FROM samochody
         WHERE samochody_id NOT IN (SELECT samochody_id FROM rejestr)
         ORDER BY RAND() LIMIT n
     );
