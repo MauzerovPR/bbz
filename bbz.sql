@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS Nabywcy (
 
 CREATE TABLE IF NOT EXISTS Rejestr (
 	rejestr_id int primary key auto_increment,
-    komitenci_id int not null,
-    nabywcy_id int not null,
+    komitenci_id int,
+    nabywcy_id int,
     samochody_id int not null,
     data_zakup timestamp default current_timestamp() not null,
     cena decimal(10, 2) not null,
-    foreign key (komitenci_id) references Komitenci(komitenci_id),
-    foreign key (nabywcy_id) references Nabywcy(nabywcy_id),
-    foreign key (samochody_id) references Samochody(samochody_id)
+    foreign key (komitenci_id) references Komitenci(komitenci_id) ON DELETE SET NULL,
+    foreign key (nabywcy_id) references Nabywcy(nabywcy_id) ON DELETE SET NULL,
+    foreign key (samochody_id) references Samochody(samochody_id) ON DELETE CASCADE
 );
 
 SHOW TABLES;
