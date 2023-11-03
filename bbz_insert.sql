@@ -138,7 +138,8 @@ CREATE PROCEDURE Make_NRandom_Purchases(IN n int) BEGIN
                 RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) data_zakup,
                 ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena,
                 rok_produkcji
-            FROM niesprzedanesamochody        )
+            FROM niesprzedanesamochody
+        )
         SELECT
             (SELECT komitenci_id FROM komitenci ORDER BY RAND() LIMIT 1),
             (SELECT nabywcy_id FROM nabywcy ORDER BY RAND() LIMIT 1),
