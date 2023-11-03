@@ -49,6 +49,13 @@ CREATE TABLE IF NOT EXISTS Rejestr (
     foreign key (samochody_id) references Samochody(samochody_id) ON DELETE CASCADE -- car removed? remove transaction
 );
 
+CREATE OR REPLACE VIEW NieSprzedaneSamochody AS (
+        SELECT samochody.*
+        FROM samochody
+        LEFT JOIN rejestr USING (samochody_id)
+        WHERE rejestr.samochody_id IS NULL
+);
+
 DROP FUNCTION IF EXISTS Random_Date_Between;
 DELIMITER \\
 CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME NO SQL BEGIN

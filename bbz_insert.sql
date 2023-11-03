@@ -126,6 +126,7 @@ INSERT INTO komitenci(imie, nazwisko, pesel, e_mail, telefon, adres) VALUES
     ('Piotr', 'Lewandowski', '87011862311', 'Piotr.Lewandowski.511@wp.pl', '660903716', 'Opoczno, Szymona Zimorowica 197');
 
 
+
 DROP PROCEDURE IF EXISTS Make_NRandom_Purchases;
 DELIMITER \\
 CREATE PROCEDURE Make_NRandom_Purchases(IN n int) BEGIN
@@ -137,11 +138,7 @@ CREATE PROCEDURE Make_NRandom_Purchases(IN n int) BEGIN
                 RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) data_zakup,
                 ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena,
                 rok_produkcji
-            FROM samochody
-            WHERE samochody_id NOT IN (
-                SELECT samochody_id FROM rejestr
-            )
-        )
+            FROM niesprzedanesamochody        )
         SELECT
             (SELECT komitenci_id FROM komitenci ORDER BY RAND() LIMIT 1),
             (SELECT nabywcy_id FROM nabywcy ORDER BY RAND() LIMIT 1),
