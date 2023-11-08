@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS Komis;
 Use Komis;
 
 CREATE TABLE IF NOT EXISTS Samochody (
-	samochody_id int primary key auto_increment,
+    samochody_id int primary key auto_increment,
     marka varchar(255),
     model varchar(255),
     typ_nadwozia varchar(255),
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Samochody (
 );
 
 CREATE TABLE IF NOT EXISTS Komitenci (
-	komitenci_id int primary key auto_increment,
+    komitenci_id int primary key auto_increment,
     imie varchar(255),
     nazwisko varchar(255),
     pesel varchar(11) check ( length(pesel) = 11 ) not null ,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Komitenci (
 );
 
 CREATE TABLE IF NOT EXISTS Nabywcy (
-	nabywcy_id int primary key auto_increment,
+    nabywcy_id int primary key auto_increment,
     imie varchar(255),
     nazwisko varchar(255),
     pesel varchar(11) check ( length(pesel) = 11 ) not null,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Nabywcy (
 );
 
 CREATE TABLE IF NOT EXISTS Rejestr (
-	rejestr_id int primary key auto_increment,
+    rejestr_id int primary key auto_increment,
     komitenci_id int,
     nabywcy_id int,
     samochody_id int not null,
@@ -50,10 +50,10 @@ CREATE TABLE IF NOT EXISTS Rejestr (
 );
 
 CREATE OR REPLACE VIEW NieSprzedaneSamochody AS (
-        SELECT samochody.*
-        FROM samochody
-        LEFT JOIN rejestr USING (samochody_id)
-        WHERE rejestr.samochody_id IS NULL
+    SELECT samochody.*
+    FROM samochody
+    LEFT JOIN rejestr USING (samochody_id)
+    WHERE rejestr.samochody_id IS NULL
 );
 
 DROP FUNCTION IF EXISTS Random_Date_Between;
@@ -66,6 +66,4 @@ END \\
 DELIMITER ;
 
 SHOW TABLES;
-
-
 
