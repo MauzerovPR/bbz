@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS Samochody (
     typ_nadwozia varchar(255),
     rok_produkcji varchar(4),
     rodzaj_paliwa varchar(255),
-    przebieg bigint,
+    przebieg bigint check (przebieg >= 0),
     numer_rej varchar(20),
-    cena decimal(10, 2) not null
+    cena decimal(10, 2) not null check (cena >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS Komitenci (
@@ -65,5 +65,44 @@ CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME NO 
 END \\
 DELIMITER ;
 
-SHOW TABLES;
+DROP PROCEDURE IF EXISTS SamochodySprzedaneWAktualnymMiesiacu;
+DELIMITER //
+CREATE PROCEDURE SamochodySprzedaneWAktualnymMiesiacu() BEGIN
+	SELECT samochody.*, data_zakup
+    FROM samochody
+    INNER JOIN rejestr USING(samochody_id)
+    WHERE YEAR(data_zakup) = YEAR(current_timestamp())
+    AND MONTH(data_zakup) = MONTH(current_timestamp());
+END //
+DELIMITER ;
 
+DROP PROCEDURE IF EXISTS DostepneSamochodyWyprodukowaneWxOstatnichLatach;
+DELIMITER //
+CREATE PROCEDURE DostepneSamochodyWyprodukowaneWxOstatnichLatach(IN x INT) BEGIN
+	SELECT niesprzedanesamochody.*
+    FROM niesprzedanesamochody
+    WHERE YEAR(current_timestamp()) - x <= rok_produkcji;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS IloscRodzajowPaliwDostepnychSamochodow;
+DELIMITER //
+CREATE PROCEDURE IloscRodzajowPaliwDostepnychSamochodow() BEGIN
+	SELECT rodzaj_paliwa, COUNT(*) ilosc
+    FROM niesprzedanesamochody
+    GROUP BY rodzaj_paliwa;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SamochodySprzedanePoNizszejCenieNizWystawiono;
+DELIMITER //
+CREATE PROCEDURE SamochodySprzedanePoNizszejCenieNizWystawiono() BEGIN
+	SELECT samochody.*, samochody.cena - rejestr.cena "roznica cen"
+    FROM samochody
+    INNER JOIN rejestr USING(samochody_id)
+    WHERE rejestr.cena < samochody.cena;
+END //
+DELIMITER ;
+
+
+SHOW TABLES;

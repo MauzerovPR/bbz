@@ -135,7 +135,7 @@ CREATE PROCEDURE Make_NRandom_Purchases(IN n int) BEGIN
         WITH cte AS (
             SELECT
                 samochody_id,
-                RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) data_zakup,
+                RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) AS data_zakup,
                 ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena,
                 rok_produkcji
             FROM niesprzedanesamochody
@@ -156,3 +156,7 @@ DELIMITER ;
 TRUNCATE TABLE rejestr;
 CALL Make_NRandom_Purchases(30);
 
+CALL SamochodySprzedaneWAktualnymMiesiacu;
+CALL DostepneSamochodyWyprodukowaneWxOstatnichLatach(3);
+CALL IloscRodzajowPaliwDostepnychSamochodow;
+CALL SamochodySprzedanePoNizszejCenieNizWystawiono;
