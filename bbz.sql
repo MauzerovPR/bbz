@@ -61,7 +61,7 @@ CREATE OR REPLACE VIEW NieSprzedaneSamochody AS
 (
 SELECT samochody.*
 FROM samochody
-         LEFT JOIN rejestr USING (samochody_id)
+LEFT JOIN rejestr USING (samochody_id)
 WHERE rejestr.samochody_id IS NULL
     );
 
@@ -82,7 +82,7 @@ CREATE PROCEDURE SamochodySprzedaneWAktualnymMiesiacu()
 BEGIN
     SELECT samochody.*, data_zakup
     FROM samochody
-             INNER JOIN rejestr USING (samochody_id)
+    INNER JOIN rejestr USING (samochody_id)
     WHERE YEAR(data_zakup) = YEAR(current_timestamp())
       AND MONTH(data_zakup) = MONTH(current_timestamp());
 END //
@@ -114,7 +114,7 @@ CREATE PROCEDURE SamochodySprzedanePoNizszejCenieNizWystawiono()
 BEGIN
     SELECT samochody.*, samochody.cena - rejestr.cena "roznica cen"
     FROM samochody
-             INNER JOIN rejestr USING (samochody_id)
+    INNER JOIN rejestr USING (samochody_id)
     WHERE rejestr.cena < samochody.cena;
 END //
 DELIMITER ;
