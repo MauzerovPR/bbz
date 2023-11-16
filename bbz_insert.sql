@@ -121,12 +121,10 @@ VALUES ('Toyota', 'Camry', 'Sedan', 2020, 'Gasoline', 20000, 'AB123CD', 20000, F
        ('Toyota', 'Corolla', 'Sedan', 2015, 'Gasoline', 150000, 'KL345MN', 6500, FLOOR(RAND() * @komitenci + 1)),
        ('Nissan', 'Rogue', 'SUV', 2012, 'Gasoline', 185000, 'OP678QR', 7000, FLOOR(RAND() * @komitenci + 1)),
        ('Ford', 'F-150', 'Pickup Truck', 2010, 'Gasoline', 200000, 'ST901UV', 8000, FLOOR(RAND() * @komitenci + 1)),
-       ('Chevrolet', 'Silverado', 'Pickup Truck', 2016, 'Gasoline', 170000, 'AB234CD', 9000,
-        FLOOR(RAND() * @komitenci + 1)),
+       ('Chevrolet', 'Silverado', 'Pickup Truck', 2016, 'Gasoline', 170000, 'AB234CD', 9000, FLOOR(RAND() * @komitenci + 1)),
        ('Toyota', 'Sienna', 'Minivan', 2014, 'Gasoline', 175000, 'EF456GH', 7500, FLOOR(RAND() * @komitenci + 1)),
        ('Honda', 'Odyssey', 'Minivan', 2011, 'Gasoline', 185000, 'IJ678KL', 7000, FLOOR(RAND() * @komitenci + 1)),
-       ('Chrysler', 'Town & Country', 'Minivan', 2013, 'Gasoline', 190000, 'MN890OP', 7800,
-        FLOOR(RAND() * @komitenci + 1)),
+       ('Chrysler', 'Town & Country', 'Minivan', 2013, 'Gasoline', 190000, 'MN890OP', 7800, FLOOR(RAND() * @komitenci + 1)),
        ('Dodge', 'Grand Caravan', 'Minivan', 2012, 'Gasoline', 175000, 'QR123ST', 7500, FLOOR(RAND() * @komitenci + 1));
 
 
@@ -136,8 +134,11 @@ CREATE PROCEDURE Make_NRandom_Purchases(IN n int)
 BEGIN
     INSERT INTO rejestr(komitenci_id, nabywcy_id, samochody_id, data_zakup, cena)
         (WITH cte AS (SELECT samochody_id,
-                             RANDOM_DATE_BETWEEN(MAKEDATE(rok_produkcji, 1), CURRENT_TIMESTAMP) AS data_zakup,
-                             ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2)                     AS cena,
+                             RANDOM_DATE_BETWEEN(
+							    MAKEDATE(GREATEST(rok_produkcji, YEAR(CURRENT_TIMESTAMP) - 3), 1), 
+                                CURRENT_TIMESTAMP
+                             ) AS data_zakup,
+                             ROUND(cena + (cena * (rand() * 0.6 - 0.2)), 2) AS cena,
                              rok_produkcji,
                              komitenci_id
                       FROM niesprzedanesamochody)
@@ -154,7 +155,7 @@ END \\
 DELIMITER ;
 
 TRUNCATE TABLE rejestr;
-CALL Make_NRandom_Purchases(30);
+CALL Make_NRandom_Purchases(20);
 
 CALL SamochodySprzedaneWAktualnymMiesiacu;
 CALL DostepneSamochodyWyprodukowaneWxOstatnichLatach(3);

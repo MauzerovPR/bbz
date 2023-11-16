@@ -84,7 +84,7 @@ BEGIN
     FROM samochody
     INNER JOIN rejestr USING (samochody_id)
     WHERE YEAR(data_zakup) = YEAR(current_timestamp())
-      AND MONTH(data_zakup) = MONTH(current_timestamp());
+      AND MONTH(data_zakup) = MONTH(current_timestamp()) - 1;
 END //
 DELIMITER ;
 
