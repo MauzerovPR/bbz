@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS AirLine;
 CREATE DATABASE IF NOT EXISTS AirLine;
 
+USE AirLine;
 
 CREATE TABLE IF NOT EXISTS Airport
 (
@@ -41,7 +42,6 @@ CREATE TABLE IF NOT EXISTS Flight
     foreign key (copilot_id) references Pilot (pilot_id),
     foreign key (aircraft_id) references Aircraft (aircraft_id),
     check ( origin <> destination ),
-    check ( next_flight <> flight_id ),
     check ( copilot_id <> pilot_id )
 );
 
