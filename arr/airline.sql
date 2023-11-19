@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Airport
 (
     airport_id bigint primary key auto_increment,
     name       varchar(255) not null,
+    timezone   varchar(10)           default null,
     valid      bool         not null default false
 );
 
@@ -14,14 +15,20 @@ CREATE TABLE IF NOT EXISTS Aircraft
 (
     aircraft_id bigint primary key auto_increment,
     type        varchar(255),
-    seats       int not null check ( seats > 0 )
+    engines     int not null,
+    seats       int not null check ( seats > 0 ),
+    origin      varchar(255) default null
 );
 
 CREATE TABLE IF NOT EXISTS Pilot
 (
-    pilot_id bigint primary key auto_increment,
-    name     varchar(255) not null,
-    surname  varchar(255)
+    pilot_id      bigint primary key auto_increment,
+    name          varchar(255) not null,
+    surname       varchar(255),
+    ssn           varchar(255) not null,
+    date_of_birth date         not null,
+    address       text,
+    phone         varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS Flight
@@ -47,9 +54,13 @@ CREATE TABLE IF NOT EXISTS Flight
 
 CREATE TABLE IF NOT EXISTS Passenger
 (
-    passenger_id bigint primary key auto_increment,
-    name         varchar(255) not null,
-    surname      varchar(255)
+    passenger_id  bigint primary key auto_increment,
+    name          varchar(255) not null,
+    surname       varchar(255),
+    ssn           varchar(255) not null,
+    date_of_birth date         not null,
+    address       text,
+    phone         varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS Ticket
