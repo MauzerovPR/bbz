@@ -6,7 +6,7 @@ Use Komis;
 
 CREATE TABLE IF NOT EXISTS Komitenci
 (
-    komitenci_id int primary key auto_increment,
+    komitenci_id int primary key  auto_increment,
     imie         varchar(255),
     nazwisko     varchar(255),
     pesel        varchar(11) check ( length(pesel) = 11 ) not null,
@@ -59,16 +59,15 @@ CREATE TABLE IF NOT EXISTS Rejestr
 
 CREATE OR REPLACE VIEW NieSprzedaneSamochody AS
 (
-SELECT samochody.*
-FROM samochody
-LEFT JOIN rejestr USING (samochody_id)
-WHERE rejestr.samochody_id IS NULL
-    );
+	SELECT samochody.*
+	FROM samochody
+	LEFT JOIN rejestr USING (samochody_id)
+	WHERE rejestr.samochody_id IS NULL
+);
 
 DROP FUNCTION IF EXISTS Random_Date_Between;
 DELIMITER \\
-CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME
-    NO SQL
+CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME NO SQL
 BEGIN
     SET @secondsBetween = TIMESTAMPDIFF(SECOND, a, b);
     SET @secondsOffset = FLOOR(RAND() * @secondsBetween);
@@ -119,4 +118,19 @@ BEGIN
 END //
 DELIMITER ;
 
+CREATE OR REPLACE VIEW NabywcyONajwiekszychKosztach AS (
+	SELECT nabywcy.*, SUM(cena) as koszt
+    FROM nabywcy
+    INNER JOIN rejestr USING(nabywcy_id)
+    GROUP BY nabywcy.nabywcy_id
+    ORDER BY koszt DESC
+);
+
+CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS (
+	SELECT marka, ROUND(AVG(rejestr.cena), 2) cena, COUNT(*) sprzedanych
+    FROM rejestr
+    INNER JOIN samochody
+    USING (samochody_id)
+    GROUP BY marka
+);
 SHOW TABLES;

@@ -161,3 +161,6 @@ CALL SamochodySprzedaneWAktualnymMiesiacu;
 CALL DostepneSamochodyWyprodukowaneWxOstatnichLatach(3);
 CALL IloscRodzajowPaliwDostepnychSamochodow;
 CALL SamochodySprzedanePoNizszejCenieNizWystawiono;
+
+SELECT * FROM NabywcyONajwiekszychKosztach;
+SELECT * FROM SredniaCenaSprzedanejMarki;
