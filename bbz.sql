@@ -133,4 +133,21 @@ CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS (
     USING (samochody_id)
     GROUP BY marka
 );
+
+CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS (
+	WITH cte AS (
+		SELECT komitenci_id, marka, COUNT(*) ilosc
+        FROM komitenci
+        INNER JOIN samochody USING(komitenci_id)
+        GROUP BY komitenci_id, marka
+        ORDER BY ilosc DESC
+	)
+    SELECT komitenci.*, marka, ilosc
+    FROM cte c
+    INNER JOIN komitenci USING(komitenci_id)
+    WHERE ilosc IN (
+		SELECT MAX(ilosc) FROM cte WHERE cte.komitenci_id = c.komitenci_id
+	)
+    -- GROUP BY komitenci.komitenci_id
+);
 SHOW TABLES;

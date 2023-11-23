@@ -164,3 +164,4 @@ CALL SamochodySprzedanePoNizszejCenieNizWystawiono;
 
 SELECT * FROM NabywcyONajwiekszychKosztach;
 SELECT * FROM SredniaCenaSprzedanejMarki;
+SELECT * FROM NajpopularniejszaMarkaWedlugKomitentow;
