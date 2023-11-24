@@ -142,12 +142,12 @@ CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS (
         GROUP BY komitenci_id, marka
         ORDER BY ilosc DESC
 	)
-    SELECT komitenci.*, marka, ilosc
+    SELECT komitenci.*, ANY_VALUE(marka) marka
     FROM cte c
     INNER JOIN komitenci USING(komitenci_id)
     WHERE ilosc IN (
 		SELECT MAX(ilosc) FROM cte WHERE cte.komitenci_id = c.komitenci_id
 	)
-    -- GROUP BY komitenci.komitenci_id
+    GROUP BY komitenci.komitenci_id
 );
 SHOW TABLES;
