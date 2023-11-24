@@ -119,7 +119,7 @@ END //
 DELIMITER ;
 
 CREATE OR REPLACE VIEW NabywcyONajwiekszychKosztach AS (
-	SELECT nabywcy.*, SUM(cena) as koszt
+	SELECT nabywcy.*, SUM(cena) AS koszt
     FROM nabywcy
     INNER JOIN rejestr USING(nabywcy_id)
     GROUP BY nabywcy.nabywcy_id
@@ -127,7 +127,7 @@ CREATE OR REPLACE VIEW NabywcyONajwiekszychKosztach AS (
 );
 
 CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS (
-	SELECT marka, ROUND(AVG(rejestr.cena), 2) cena, COUNT(*) sprzedanych
+	SELECT marka, ROUND(AVG(rejestr.cena), 2) AS cena, COUNT(*) sprzedanych
     FROM rejestr
     INNER JOIN samochody
     USING (samochody_id)
@@ -136,18 +136,19 @@ CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS (
 
 CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS (
 	WITH cte AS (
-		SELECT komitenci_id, marka, COUNT(*) ilosc
+        SELECT
+            komitenci_id,
+            marka,
+            COUNT(*) ilosc,
+            ROW_NUMBER() OVER (partition by komitenci_id order by COUNT(*) desc) AS rn
         FROM komitenci
-        INNER JOIN samochody USING(komitenci_id)
+        INNER JOIN samochody USING (komitenci_id)
         GROUP BY komitenci_id, marka
-        ORDER BY ilosc DESC
+        ORDER BY komitenci_id
 	)
-    SELECT komitenci.*, ANY_VALUE(marka) marka
-    FROM cte c
+    SELECT komitenci.*, marka, ilosc
+    FROM cte
     INNER JOIN komitenci USING(komitenci_id)
-    WHERE ilosc IN (
-		SELECT MAX(ilosc) FROM cte WHERE cte.komitenci_id = c.komitenci_id
-	)
-    GROUP BY komitenci.komitenci_id
+    WHERE cte.rn = 1
 );
 SHOW TABLES;
