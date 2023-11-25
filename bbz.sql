@@ -6,7 +6,7 @@ Use Komis;
 
 CREATE TABLE IF NOT EXISTS Komitenci
 (
-    komitenci_id int primary key  auto_increment,
+    komitenci_id int primary key auto_increment,
     imie         varchar(255),
     nazwisko     varchar(255),
     pesel        varchar(11) check ( length(pesel) = 11 ) not null,
@@ -59,15 +59,16 @@ CREATE TABLE IF NOT EXISTS Rejestr
 
 CREATE OR REPLACE VIEW NieSprzedaneSamochody AS
 (
-	SELECT samochody.*
-	FROM samochody
-	LEFT JOIN rejestr USING (samochody_id)
-	WHERE rejestr.samochody_id IS NULL
-);
+SELECT samochody.*
+FROM samochody
+LEFT JOIN rejestr USING (samochody_id)
+WHERE rejestr.samochody_id IS NULL
+    );
 
 DROP FUNCTION IF EXISTS Random_Date_Between;
 DELIMITER \\
-CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME NO SQL
+CREATE FUNCTION Random_Date_Between(a DATETIME, b DATETIME) RETURNS DATETIME
+    NO SQL
 BEGIN
     SET @secondsBetween = TIMESTAMPDIFF(SECOND, a, b);
     SET @secondsOffset = FLOOR(RAND() * @secondsBetween);
@@ -118,37 +119,40 @@ BEGIN
 END //
 DELIMITER ;
 
-CREATE OR REPLACE VIEW NabywcyONajwiekszychKosztach AS (
-	SELECT nabywcy.*, SUM(cena) AS koszt
+CREATE OR REPLACE VIEW NabywcyONajwiekszychKosztach AS
+(
+    SELECT nabywcy.*, SUM(cena) AS koszt
     FROM nabywcy
-    INNER JOIN rejestr USING(nabywcy_id)
+    INNER JOIN rejestr USING (nabywcy_id)
     GROUP BY nabywcy.nabywcy_id
     ORDER BY koszt DESC
 );
 
-CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS (
-	SELECT marka, ROUND(AVG(rejestr.cena), 2) AS cena, COUNT(*) sprzedanych
+CREATE OR REPLACE VIEW SredniaCenaSprzedanejMarki AS
+(
+    SELECT marka, ROUND(AVG(rejestr.cena), 2) AS cena, COUNT(*) sprzedanych
     FROM rejestr
-    INNER JOIN samochody
-    USING (samochody_id)
+    INNER JOIN samochody USING (samochody_id)
     GROUP BY marka
 );
 
-CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS (
-	WITH cte AS (
-        SELECT
-            komitenci_id,
-            marka,
-            COUNT(*) ilosc,
-            ROW_NUMBER() OVER (partition by komitenci_id order by COUNT(*) desc) AS rn
-        FROM komitenci
-        INNER JOIN samochody USING (komitenci_id)
-        GROUP BY komitenci_id, marka
+CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS
+(
+    WITH cte AS (
+        SELECT *, ROW_NUMBER() OVER (partition by komitenci_id order by ilosc desc) AS rn
+        FROM (
+            SELECT komitenci_id,
+                   marka,
+                   COUNT(*) ilosc
+            FROM komitenci
+            INNER JOIN samochody USING (komitenci_id)
+            GROUP BY komitenci_id, marka
+        ) counted
         ORDER BY komitenci_id
-	)
+    )
     SELECT komitenci.*, marka, ilosc
     FROM cte
-    INNER JOIN komitenci USING(komitenci_id)
+    INNER JOIN komitenci USING (komitenci_id)
     WHERE cte.rn = 1
 );
 SHOW TABLES;
