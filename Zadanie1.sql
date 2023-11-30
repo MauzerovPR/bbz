@@ -33,7 +33,7 @@ VALUES  ('Argentyna', 2766, 26, 'Ameryka'),
 INSERT INTO Artykuly
 VALUES  ('Windows', 'S.O.', 500),
 		('Word', 'Edytor', 450),
-        ('Linux', 'S.O.', 200),
+        ('Linux', 'S.O.', 450), -- 200
         ('Star', 'Edytor', 220),
         ('Paradox', 'Baza', 900),
         ('DeltaCad', 'CAD', 1800),
@@ -53,6 +53,29 @@ order by nazwa;
 
 select * from kraje
 where (obszar, kontynent) in (
-	select max(obszar), k.kontynent from kraje k
-    group by k.kontynent
+	select max(obszar), kontynent from kraje
+    group by kontynent
+);
+
+select * from artykuly
+where cena in (
+	-- nie działa poprawnie, jezeli rekord ma taka samą cene jak najwieksza cena dowolnej kategorii, jest on brany pod uwage w wyniku
+    -- mimo tego ze nie jest on najwiekszą ceną w swojej kategorii
+	select max(cena) from artykuly group by rodzaj
 )
+order by cena;
+
+select * from artykuly
+where cena > (
+	select min(cena) from artykuly
+	where rodzaj = 'Baza'
+)
+order by cena desc;
+
+select rodzaj, ceil(avg(cena)) srednia_cena
+from artykuly group by rodzaj
+having srednia_cena > (
+	select avg(cena) from artykuly
+    where rodzaj = 'S.O.'
+)
+order by rodzaj;
