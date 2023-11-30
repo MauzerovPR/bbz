@@ -3,6 +3,7 @@ CREATE DATABASE Zadanie1;
 
 USE Zadanie1;
 
+-- Utworzenie:
 
 CREATE TABLE IF NOT EXISTS Kraje (
 	Nazwa Varchar(255) PRIMARY KEY,
@@ -38,5 +39,20 @@ VALUES  ('Windows', 'S.O.', 500),
         ('DeltaCad', 'CAD', 1800),
         ('Delphi', 'Baza', 3100),
         ('Designer', 'CAD', 800),
-        ('Optioma C++', 'Baza', 1600),
+        ('Optima C++', 'Baza', 1600),
         ('AutoCad', 'CAD', 6000);
+
+
+-- Rozwiązanie:
+
+select nazwa, obszar from kraje
+where kontynent = (
+	select kontynent from kraje where nazwa = 'Kanada'
+)
+order by nazwa;
+
+select * from kraje
+where (obszar, kontynent) in (
+	select max(obszar), k.kontynent from kraje k
+    group by k.kontynent
+)
