@@ -79,3 +79,47 @@ having srednia_cena > (
     where rodzaj = 'S.O.'
 )
 order by rodzaj;
+
+-- ------------------
+-- 1 a
+with cte as (
+	select kontynent, count(*) ilosc
+    from kraje group by kontynent
+)
+select kontynent from cte
+where ilosc = (
+	select max(ilosc) from cte
+);
+-- 1 b
+select kontynent from kraje
+group by kontynent
+having count(*) = (
+	select count(*)
+	from kraje
+	group by kontynent
+    order by count(*) desc
+    limit 1
+);
+-- 2 a
+select kontynent from kraje
+group by kontynent
+having sum(ludnosc) = (
+	select sum(ludnosc) suma_lodnosc from kraje
+	group by kontynent
+    order by suma_lodnosc asc
+    limit 1
+);
+-- 2 b
+select kontynent from kraje
+group by kontynent
+order by sum(ludnosc) asc
+limit 1;
+-- 2 c
+with cte as (
+	select kontynent, sum(ludnosc) suma
+    from kraje group by kontynent
+)
+select kontynent from cte
+where suma = (
+	select min(suma) from cte
+);
