@@ -43,6 +43,21 @@ VALUES  ('Windows', 'S.O.', 500),
         ('AutoCad', 'CAD', 6000);
 
 
+CREATE TABLE Produkty(
+	nazwa text,
+    kat int
+);
+
+INSERT INTO Produkty VALUES(
+	'avocado',	1),
+	('bataty',	2),
+	('krewetki',	3),
+	('parmezan',	5),
+	('salami',	10),
+	('tokaj',	4),
+	('winogrona',	1);
+    
+
 -- Rozwiązanie:
 
 select nazwa, obszar from kraje
