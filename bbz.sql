@@ -155,4 +155,42 @@ CREATE OR REPLACE VIEW NajpopularniejszaMarkaWedlugKomitentow AS
     INNER JOIN komitenci USING (komitenci_id)
     WHERE cte.rn = 1
 );
+
+CREATE OR REPLACE VIEW NazwiskaKomitentowKtoreMajaNabywcy AS
+(
+	SELECT nazwisko FROM komitenci
+    INTERSECT
+    SELECT nazwisko FROM nabywcy
+);
+
+CREATE OR REPLACE VIEW MiastaZamieszkaniaNabywcowIKomitentow AS
+(
+	SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM nabywcy
+    UNION
+    SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM komitenci
+);
+
+CREATE OR REPLACE VIEW MiastaZamieszkaniaTylkoPrzezKomitentow AS
+(
+	SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM komitenci
+    EXCEPT
+    SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM nabywcy
+);
+
+CREATE OR REPLACE VIEW KomitenciKtorzyNieSprzedaliAuta AS
+(
+	SELECT komitenci.*
+    FROM komitenci
+    WHERE komitenci_id IN (
+		SELECT komitenci_id
+        FROM samochody
+        EXCEPT
+        SELECT komitenci_id
+        FROM rejestr
+	)
+);
+
+
 SHOW TABLES;
+
+

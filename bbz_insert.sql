@@ -1,4 +1,5 @@
 USE Komis;
+USE Komis;
 
 
 INSERT INTO nabywcy(imie, nazwisko, pesel, e_mail, telefon, adres)
@@ -47,9 +48,7 @@ VALUES ('Maria', 'Kołodziejczyk', '29060828120', 'Maria.Kolodziejczyk@outlook.c
        ('Piotr', 'Lewandowski', '87011862311', 'Piotr.Lewandowski.511@wp.pl', '660903716', 'Opoczno, Szymona Zimorowica 197');
 
 
-SELECT COUNT(*)
-INTO @komitenci
-FROM komitenci;
+SELECT COUNT(*) INTO @komitenci FROM komitenci;
 
 INSERT INTO samochody(marka, model, typ_nadwozia, rok_produkcji, rodzaj_paliwa, przebieg, numer_rej, cena, komitenci_id)
 VALUES ('Toyota', 'Camry', 'Sedan', 2020, 'Gasoline', 20000, 'AB123CD', 20000, FLOOR(RAND() * @komitenci + 1)),
@@ -165,3 +164,12 @@ CALL SamochodySprzedanePoNizszejCenieNizWystawiono;
 SELECT * FROM NabywcyONajwiekszychKosztach;
 SELECT * FROM SredniaCenaSprzedanejMarki;
 SELECT * FROM NajpopularniejszaMarkaWedlugKomitentow;
+
+SELECT * FROM NazwiskaKomitentowKtoreMajaNabywcy;
+SELECT * FROM MiastaZamieszkaniaNabywcowIKomitentow;
+SELECT * FROM MiastaZamieszkaniaTylkoPrzezKomitentow;
+SELECT * FROM KomitenciKtorzyNieSprzedaliAuta;
+
+EXPLAIN ANALYZE 	SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM komitenci
+    EXCEPT
+    SELECT LEFT(adres, INSTR(adres, ',') - 1) AS Miasto FROM nabywcy
