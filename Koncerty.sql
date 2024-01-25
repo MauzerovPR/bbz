@@ -1,7 +1,11 @@
+-- "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root --password="administrator" -P 3307 --local-infile=1 < Koncerty.sql
+
 DROP DATABASE IF EXISTS Koncerty;
 CREATE DATABASE Koncerty;
 
 USE Koncerty;
+
+SET GLOBAL local_infile = true;
 
 CREATE TABLE miasta(
     kod_miasta VARCHAR(6) NOT NULL
